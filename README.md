@@ -15,6 +15,8 @@ https://www.youtube.com/watch?v=Y9XZQO1n_7c
 
 ## Things not yet implemented
 ### Necessary
+Everything, espacially:
+- general structure of the program
 - timestamp
 - Merkle tree
 - network part (baisc interactions between nodes)
