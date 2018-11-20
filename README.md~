@@ -10,17 +10,8 @@ https://www.youtube.com/watch?v=Y9XZQO1n_7c
 
 
 ## Reference
-### Theory
 - https://bitcoin.org/bitcoin.pdf
-
-### Real World
-- blockchain info: https://www.blockchain.com/explorer
-- Bitcoin Wallet interface: https://www.youtube.com/watch?v=brwtJ1JTU58
-- How to mine: https://www.digitaltrends.com/computing/how-to-mine-bitcoin/
-
-### Code
 - https://github.com/dvf/blockchain 
-- https://github.com/Bitcoin-ABC/bitcoin-abc/blob/master/contrib/debian/examples/bitcoin.conf
 
 ## Things not yet implemented
 ### Necessary
