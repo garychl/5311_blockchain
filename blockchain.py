@@ -38,10 +38,10 @@ class Block():
         self.summary = {"id": self.id,
                         "timestamp": self.timestamp,
                         "previous_hash": self.previous_hash,
-                        "current_hash", self.current_hash,
-                        "nonce", self.nonce,
-                        "transactions", self.transactions,
-                        "merkle_tree", self.merkle_tree}
+                        "current_hash": self.current_hash,
+                        "nonce": self.nonce,
+                        "transactions": self.transactions,
+                        "merkle_tree": self.merkle_tree}
 
     def make_merkle_tree(self):
         pass
