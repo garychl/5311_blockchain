@@ -28,13 +28,13 @@ class Node():
 
 class Block():
     def __init__(self, previous_hash, transactions):
-        self.id = pass
-        self.timestamp = pass
+        self.id = None
+        self.timestamp = None
         self.previous_hash = previous_hash
-        self.current_hash = pass
-        self.nonce = pass
+        self.current_hash = None
+        self.nonce = None
         self.transactions = transactions
-        self.merkle_tree = pass
+        self.merkle_tree = None
         self.summary = {"id": self.id,
                         "timestamp": self.timestamp,
                         "previous_hash": self.previous_hash,
