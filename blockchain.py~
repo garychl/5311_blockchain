@@ -45,10 +45,3 @@ class Block():
 
     def make_merkle_tree(self):
         pass
-
-
-class MerkleTree():
-    def __init__(self, transactions):
-        self.root = None
-        self.parent = None
-        self.child = None
