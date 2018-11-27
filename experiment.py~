@@ -1,0 +1,10 @@
+import hashlib
+import time
+
+print(hashlib.sha256("hi".encode()).hexdigest())
+
+class block():
+    def __init__():
+        self.b_index = 0
+        
+    def create_block
