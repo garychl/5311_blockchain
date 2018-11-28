@@ -3,10 +3,11 @@ blockchain project
 
 ## Getting started
 python quick start:
-https://www.stavros.io/tutorials/python/
+general: https://www.stavros.io/tutorials/python/
+connection: https://pythonprogramming.net/python-binding-listening-sockets/
 
 github quick start:
-https://www.youtube.com/watch?v=Y9XZQO1n_7c
+general: https://www.youtube.com/watch?v=Y9XZQO1n_7c
 
 
 ## Reference
