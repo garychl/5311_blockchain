@@ -31,6 +31,10 @@ github quick start:
 Everything, espacially:
 - ~~general structure of the program~~
 - ~~timestamp~~
+- ~~Block~~
+- ~~Node~~
+- ~~pow~~
+- chain validation
 - Merkle tree
 - network part (baisc interactions between nodes)
 - command line interface
