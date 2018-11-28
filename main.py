@@ -2,7 +2,8 @@ from blockchain import Block, Node
 
 ### The first Node and Block
 GenesisNode = Node()
-GenesisBlock = Block(index=0,nonce=2083236893,\
+GenesisBlock = Block(index=0,
+                     nonce=2083236893,
                      last_hash="0000000000000000000000000000000000000000000000000000000000000000",
                      transactions=0,
                      timestamp=1231006505)
