@@ -101,3 +101,5 @@ class Node(object):
         print("Successfully mined a block! \nblock details:", block)
         print("Block hash is: {}".format(block.get_block_hash))
         return True
+
+# test
