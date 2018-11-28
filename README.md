@@ -29,8 +29,8 @@ github quick start:
 ## Things not yet implemented
 ### Necessary
 Everything, espacially:
-- general structure of the program
-- timestamp
+- ~~general structure of the program~~
+- ~~timestamp~~
 - Merkle tree
 - network part (baisc interactions between nodes)
 - command line interface
