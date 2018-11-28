@@ -18,6 +18,7 @@ https://www.youtube.com/watch?v=Y9XZQO1n_7c
 - Bitcoin Wallet interface: https://www.youtube.com/watch?v=brwtJ1JTU58
 - How to mine: https://www.digitaltrends.com/computing/how-to-mine-bitcoin/
 - Node knowledge: https://www.worldcryptoindex.com/how-nodes-work/
+- Network communication: https://en.bitcoin.it/wiki/Network
 
 ### Code
 - https://github.com/dvf/blockchain 
