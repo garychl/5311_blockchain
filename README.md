@@ -34,13 +34,14 @@ Everything, espacially:
 - ~~Block~~
 - ~~Node~~
 - ~~pow~~
-- chain validation
 - Merkle tree
 - network part (baisc interactions between nodes)
 - command line interface
 
 ### Optional
 - database
+- chain validation
+- rewards to miners
 
 ## Tasks
 - 10 mins Demo (3/12/2018)
