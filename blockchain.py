@@ -59,33 +59,32 @@ class Node(object):
         return True
 
     @staticmethod
-    def valid_proof(last_nonce, nonce, last_hash):
+    def valid_proof(index, nonce, last_hash, transactions, timestamp):
         """Validates the Proof
         :param last_nonce: <int> Previous Proof
         :param nonce: <int> Current Proof
         :param last_hash: <str> The hash of the Previous Block
         :return: <bool> True if correct, False if not.
         """
-        guess = f'{last_nonce}{nonce}{last_hash}'.encode()
+        guess = f'{index}{nonce}{last_hash}{transactions}{timestamp}'.encode()
         guess_hash = hashlib.sha256(guess).hexdigest()
         return guess_hash[:4] == "0000"
 
-    def proof_of_work(self, last_block):
-        last_nonce = last_block.nonce
-        last_hash = last_block.get_block_hash
+    def proof_of_work(self, index, last_hash, transactions, timestamp):
         nonce = 0
         
-        while not self.valid_proof(last_nonce, nonce, last_hash):
+        while not self.valid_proof(index, nonce, last_hash, transactions, timestamp):
             nonce += 1
 
         return nonce
 
-    def create_new_block(self, nonce, last_hash):
+    def create_new_block(self, index, nonce, last_hash, transactions, timestamp):
         block = Block(
-            index=len(self.chain),
+            index=index,
             nonce=nonce,
             last_hash=last_hash,
-            transactions=self.transactions
+            transactions=transactions,
+            timestamp=timestamp
         )
         self.transactions = []  # Reset the transaction list
         self.chain.append(block)
@@ -93,13 +92,14 @@ class Node(object):
 
     def mine(self):
         # omit: send rewards to miner
+        index = len(self.chain)
         last_block = self.chain[-1]
         last_hash = last_block.get_block_hash
-        nonce = self.proof_of_work(last_block)
+        transactions = self.transactions
+        timestamp = time.time()
+        nonce = self.proof_of_work(index, last_hash, transactions, timestamp)
         
-        block = self.create_new_block(nonce=nonce, last_hash=last_hash)
+        block = self.create_new_block(index, nonce, last_hash, transactions, timestamp)
         print("Successfully mined a block! \nblock details:", block)
         print("Block hash is: {}".format(block.get_block_hash))
         return True
-
-# test
