@@ -2,7 +2,7 @@ import time
 import hashlib
 from Crypto.PublicKey import RSA
 
-import mysql.connector
+# import mysql.connector
 
 
 class Block(object):
@@ -31,15 +31,15 @@ class Node(object):
         self.transactions = []
         self.nodes = set()
 
-    def connect_db(self, username, password, dbname, host="localhost"):
-        self.mydb = mysql.connector.connect(
-            host=host,
-            user=username,
-            passwd=password,
-            database=dbname
-        )
-        self.mycursor = self.mydb.cursor()
-        return True
+#    def connect_db(self, username, password, dbname, host="localhost"):
+#        self.mydb = mysql.connector.connect(
+#            host=host,
+#            user=username,
+#            passwd=password,
+#            database=dbname
+#        )
+#        self.mycursor = self.mydb.cursor()
+#        return True
 
     def make_wallet(self):
         modulus_length = 1024
