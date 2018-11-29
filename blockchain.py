@@ -19,6 +19,7 @@ class Block(object):
         return "index:{} - nonce:{} - last_hash:{} - transactions:{} - timestamp:{}".format(self.index, self.nonce, self.last_hash, self.transactions, self.timestamp)
 
 
+# class GenesisBlock(Block)
 
 class Node(object):
     def __init__(self):
