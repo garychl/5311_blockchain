@@ -59,7 +59,7 @@ class Node(object):
         return True
 
     @staticmethod
-    def valid_proof(index, nonce, last_hash, transactions, timestamp):
+    def valid_proof(index, nonce, last_hash, transactions, timestamp, difficulty=4):
         """Validates the Proof
         :param last_nonce: <int> Previous Proof
         :param nonce: <int> Current Proof
@@ -68,7 +68,7 @@ class Node(object):
         """
         guess = f'{index}{nonce}{last_hash}{transactions}{timestamp}'.encode()
         guess_hash = hashlib.sha256(guess).hexdigest()
-        return guess_hash[:4] == "0000"
+        return guess_hash[:difficulty] == "0"*difficulty
 
     def proof_of_work(self, index, last_hash, transactions, timestamp):
         nonce = 0
