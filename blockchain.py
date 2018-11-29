@@ -2,6 +2,9 @@ import time
 import hashlib
 from Crypto.PublicKey import RSA
 
+import mysql.connector
+
+
 class Block(object):
     def __init__(self, index, nonce, last_hash, transactions, timestamp=None):
         self.index = index
@@ -27,6 +30,16 @@ class Node(object):
         self.chain = []
         self.transactions = []
         self.nodes = set()
+
+    def connect_db(self, username, password, dbname, host="localhost"):
+        self.mydb = mysql.connector.connect(
+            host=host,
+            user=username,
+            passwd=password,
+            database=dbname
+        )
+        self.mycursor = self.mydb.cursor()
+        return True
 
     def make_wallet(self):
         modulus_length = 1024
@@ -73,7 +86,7 @@ class Node(object):
 
     def proof_of_work(self, index, last_hash, transactions, timestamp):
         nonce = 0
-        
+
         while not self.valid_proof(index, nonce, last_hash, transactions, timestamp):
             nonce += 1
 
@@ -99,7 +112,7 @@ class Node(object):
         transactions = self.transactions
         timestamp = time.time()
         nonce = self.proof_of_work(index, last_hash, transactions, timestamp)
-        
+
         block = self.create_new_block(index, nonce, last_hash, transactions, timestamp)
         print("Successfully mined a block! \nblock details:", block)
         print("Block hash is: {}".format(block.get_block_hash))
