@@ -1,1 +1,2 @@
 # add requirements
+mysql-connector-python 

@@ -6,12 +6,36 @@ import mysql.connector
 
 
 # create db statement
+def create_db():
+    sql = "CREATE DATABASE blockchainsystem"
 
-# create table statement
+# delete db statement
+def del_db():
+    sql = "DROP DATABASE IF EXISTS blockchainsystem"
 
-# insert statement(insert new block data into the table)
+# create blockchain table statement
+def create_blockchain_table():
+		sql = ""
 
-# query statement (get the latest block)
+# create transactions table statement (sender address, recipient address, amount)
+def create_transactions_table():
+		sql = ""
+
+# insert blockchain statement(insert new block data into the table)
+def insert_into_blockchain():
+		sql = ""
+
+# insert transactions statement(insert new txn data into the table)
+def insert_into_transactions():
+		sql = ""
+
+# query blockchain statement (get the latest block)
+def query_last_block():
+		sql = ""
+
+# query transactions statement (get the latest block)
+def query_all_transactions():
+		sql = ""
 
 
 
