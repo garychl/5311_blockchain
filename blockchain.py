@@ -45,6 +45,8 @@ class Node(object):
         modulus_length = 1024
         key = RSA.generate(modulus_length)
         pub_key = key.publickey()
+        print(pub_key)
+        print(help(pub_key))
         self.address = pub_key
         return key, pub_key
 
