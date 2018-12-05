@@ -1,121 +1,101 @@
 import time
+import json
+import yaml,random
 import hashlib
+from merkle_tree import *
 from Crypto.PublicKey import RSA
 
 # import mysql.connector
 
 
 class Block(object):
-    def __init__(self, index, nonce, last_hash, transactions, timestamp=None):
+    def __init__(self, index='', nonce='', last_hash='',transactions=None, timestamp=None):
         self.index = index
         self.nonce = nonce
         self.last_hash = last_hash
         self.transactions = transactions
+        if transactions == None:
+            self.merkleRoot = '0'
+        else:
+            self.merkleRoot = MerkleTree(transactions).root.data
+
         self.timestamp = timestamp or time.time()
 
-    @property
     def get_block_hash(self):
-        block_string = "{}{}{}{}{}".format(self.index, self.nonce, self.last_hash, self.transactions, self.timestamp)
+        block_string = "{}{}{}{}{}".format(self.index, self.nonce, self.last_hash, self.merkleRoot, self.timestamp)
         return hashlib.sha256(block_string.encode()).hexdigest()
 
-    def __repr__(self):
-        return "index:{} - nonce:{} - last_hash:{} - transactions:{} - timestamp:{}".format(self.index, self.nonce, self.last_hash, self.transactions, self.timestamp)
+    def parseBlock(self,blockstr):
+        print("~~~~~~~",blockstr)
+        jsonBlock = yaml.safe_load(blockstr)
+        print(jsonBlock)
+        self.index = jsonBlock['index']
+        self.nonce = jsonBlock['nonce']
+        self.last_hash = jsonBlock['last_hash']
+        self.timestamp = jsonBlock['timestamp']
+        self.transactions = jsonBlock['transactions']
+        self.merkleRoot = jsonBlock['merkleRoot']
+
+        return self
+
+    def getBlockDict(self):
+        dict = {}
+        dict['index'] = self.index
+        dict['nonce'] = self.nonce
+        dict['last_hash'] = self.last_hash
+        dict['timestamp'] = self.timestamp
+        dict['transactions'] = self.transactions
+        dict['merkleRoot'] = self.merkleRoot
+
+        return dict
+
+    def getBlockStr(self):
+
+        return yaml.dump(self.getBlockDict())
 
 
-# class GenesisBlock(Block)
 
-class Node(object):
-    def __init__(self):
-        self.private_key, self.public_key = self.make_wallet()
-        self.chain = []
-        self.transactions = []
-        self.nodes = set()
 
-#    def connect_db(self, username, password, dbname, host="localhost"):
-#        self.mydb = mysql.connector.connect(
-#            host=host,
-#            user=username,
-#            passwd=password,
-#            database=dbname
-#        )
-#        self.mycursor = self.mydb.cursor()
-#        return True
+class MindNextBlock():
+    def __init__(self,lastBlock):
+        self.lastBlock = lastBlock
+        self.nextBlock = Block()
+        self.nextBlock.index = lastBlock.index + 1
+        self.nextBlock.last_hash = lastBlock.get_block_hash()
+        self.nextBlock.timestamp = str(time.time())
+        self.nextBlock.nonce = random.randint(-1,999999) # or random number
+        self.guess = 0
+        self.guess_hash = 0
 
-    def make_wallet(self):
-        modulus_length = 1024
-        key = RSA.generate(modulus_length)
-        pub_key = key.publickey()
-        print(pub_key)
-        print(help(pub_key))
-        self.address = pub_key
-        return key, pub_key
-
-    def getdata(self, hash):
-        """ getdata - Request a single block or transaction by hash
-        return: block or txn
-        """
-        pass
-
-    def inv(self):
-        """ inv - "I have these blocks/transactions: ..." Normally sent only when a new block or transaction is being relayed. This is only a list, not the actual data.
-        """
-        pass
-
-    def getblocks(self):
-        """getblocks - Request an inv of all blocks in a range
-        return: list of blocks in a range
-        """
-        pass
-
-    def make_transactions(self, recipient, amount):
-        self.transactions.append(
-            {"sender":self.address,
-             "recipient":recipient,
-             "amount":amount})
-        return True
-
-    @staticmethod
-    def valid_proof(index, nonce, last_hash, transactions, timestamp, difficulty=4):
+    def valid_proof(self, difficulty=5):
         """Validates the Proof
         :param last_nonce: <int> Previous Proof
         :param nonce: <int> Current Proof
         :param last_hash: <str> The hash of the Previous Block
         :return: <bool> True if correct, False if not.
         """
-        guess = f'{index}{nonce}{last_hash}{transactions}{timestamp}'.encode()
-        guess_hash = hashlib.sha256(guess).hexdigest()
-        return guess_hash[:difficulty] == "0"*difficulty
+        self.guess = '{}{}{}{}{}'.format(self.nextBlock.index,
+                                    self.nextBlock.nonce,
+                                    self.nextBlock.last_hash,
+                                    self.nextBlock.merkleRoot,
+                                    self.nextBlock.timestamp).encode()
+        self.guess_hash = hashlib.sha256(self.guess).hexdigest()
+        return self.guess_hash[:difficulty] == "0" * difficulty
 
-    def proof_of_work(self, index, last_hash, transactions, timestamp):
-        nonce = 0
 
-        while not self.valid_proof(index, nonce, last_hash, transactions, timestamp):
-            nonce += 1
+    def mineOneStep(self):
 
-        return nonce
+        self.nextBlock.nonce += 1
+        result = self.valid_proof()
 
-    def create_new_block(self, index, nonce, last_hash, transactions, timestamp):
-        block = Block(
-            index=index,
-            nonce=nonce,
-            last_hash=last_hash,
-            transactions=transactions,
-            timestamp=timestamp
-        )
-        self.transactions = []  # Reset the transaction list
-        self.chain.append(block)
-        return block
+        return result
+    def addTransactions(self,transactions):
 
-    def mine(self):
-        # omit: send rewards to miner
-        index = len(self.chain)
-        last_block = self.chain[-1]
-        last_hash = last_block.get_block_hash
-        transactions = self.transactions
-        timestamp = time.time()
-        nonce = self.proof_of_work(index, last_hash, transactions, timestamp)
+        self.nextBlock.transactions =  []
+        # deep copy
+        for transaction in transactions:
+            self.nextBlock.transactions.append(transaction)
+        tree =  MerkleTree(self.nextBlock.transactions)
+        self.nextBlock.merkleRoot = tree.root.data
 
-        block = self.create_new_block(index, nonce, last_hash, transactions, timestamp)
-        print("Successfully mined a block! \nblock details:", block)
-        print("Block hash is: {}".format(block.get_block_hash))
-        return True
+# class GenesisBlock(Block)

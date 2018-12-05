@@ -1,13 +1,16 @@
 # 5311_blockchain
 blockchain project
 
-## Getting started
-python quick start:
-- general: https://www.stavros.io/tutorials/python/
-- connection: https://pythonprogramming.net/python-binding-listening-sockets/
+## Introduction
+This is a blockchain class project (COMP 5311) by a team of HK POLYU MSc students. Speical thanks to our teammate taly who made lots of contributions to the communcation part of the nodes.  This project is to model the real bitcoin system using python.
 
-github quick start:
-- general: https://www.youtube.com/watch?v=Y9XZQO1n_7c
+
+## Getting started
+- handlelnv.py: to handle environment
+- serverPart.py: Full node
+- recvdataset.py: To receive data and write to database
+- port12100.py/port12200.py: Miner
+
 
 
 ## Reference
@@ -21,29 +24,12 @@ github quick start:
 - Node knowledge: https://www.worldcryptoindex.com/how-nodes-work/
 - Network communication: https://en.bitcoin.it/wiki/Network
 
-### Code
+### Code reference
 - https://github.com/dvf/blockchain 
 - https://github.com/Bitcoin-ABC/bitcoin-abc/blob/master/contrib/debian/examples/bitcoin.conf
 - https://www.pyscoop.com/building-a-simple-blockchain-in-python/
 
-## Things not yet implemented
-### Necessary
-Everything, espacially:
-- ~~general structure of the program~~
-- ~~timestamp~~
-- ~~Block~~
-- ~~Node~~
-- ~~pow~~
-- Merkle tree
-- network part (baisc interactions between nodes)
-- command line interface
-
-### Optional
-- database
-- chain validation
-- rewards to miners
-
 ## Tasks
 - 10 mins Demo (3/12/2018)
 - 2-5 pages group report (10/12/2018)
-- 1 page individual report (10/12/2018) 
+- 1 page individual report (10/12/2018)

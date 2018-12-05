@@ -1,3 +1,8 @@
 *~
 experiment.py
 __pycache__
+*.doc
+*.docx
+*.ppt
+*.pptx
+*.DS_Store

@@ -13,6 +13,19 @@ GenesisNode.chain.append(GenesisBlock)
 ### Modelling the real world
 NodeA = Node()
 NodeA.chain.append(GenesisBlock)  # pretend we receive block data from other node
-NodeA.make_transactions("address_of_B", 100)
-NodeA.mine()
+NodeA.make_transactions("address_of_B", 100,'12005')
 
+
+if __name__ == '__main__':
+
+    NodeA.prepareForStart()
+    while True:
+        # if receive something you can do some process and break the code
+
+        if(NodeA.mineOneStep()==True):
+            break
+
+
+    block = NodeA.getBlock()
+    print(block)
+    print("Block hash is: {}".format(block.get_block_hash))
