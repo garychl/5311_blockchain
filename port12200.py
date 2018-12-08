@@ -71,8 +71,6 @@ def agrt():
                 transactions = [getMymoney(myPort)]
                 ifRecvNewBlock.clear()
         else:
-            # 如果收到了新的block，则重新初始化mindNextBlock方法
-            # 把最新的block加入进来
             lastBlock = Block()
             lastBlock.parseBlock(aLastBlock)
             mindNextBlock = MindNextBlock(lastBlock)

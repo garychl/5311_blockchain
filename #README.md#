@@ -2,10 +2,15 @@
 blockchain project
 
 ## Introduction
-This is a blockchain class project (COMP 5311) by a team of HK POLYU MSc students. Special thanks to our teammate Taly who made lots of contributions to the communication part of the nodes.  
+This is a blockchain class project (COMP 5311) by a team of HK POLYU MSc students. Speical thanks to our teammate taly who made lots of contributions to the communcation part of the nodes.  This project is to model the real bitcoin system using python.
 
 
 ## Getting started
+- serverPart.py: Full node
+- recvdataset.py: To receive data and write to database
+- port12100.py/port12200.py: Miner
+
+
 
 ## Reference
 ### Theory
@@ -19,7 +24,7 @@ This is a blockchain class project (COMP 5311) by a team of HK POLYU MSc student
 - Network communication: https://en.bitcoin.it/wiki/Network
 
 ### Code reference
-- https://github.com/dvf/blockchain
+- https://github.com/dvf/blockchain 
 - https://github.com/Bitcoin-ABC/bitcoin-abc/blob/master/contrib/debian/examples/bitcoin.conf
 - https://www.pyscoop.com/building-a-simple-blockchain-in-python/
 
